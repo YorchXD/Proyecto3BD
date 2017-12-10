@@ -1,0 +1,105 @@
+﻿CREATE TABLE Veterinaria (
+	rut VARCHAR(256) PRIMARY KEY,
+	nombre VARCHAR(256) NOT NULL UNIQUE
+);
+
+CREATE TABLE Sucursal (
+	num_permiso VARCHAR(256) PRIMARY KEY,
+	telefono BIGINT NOT NULL,
+	direccion VARCHAR(256) NOT NULL,
+	refVeterinaria VARCHAR(256),
+	estado BOOL, 
+	FOREIGN KEY (refVeterinaria) REFERENCES Veterinaria(rut) ON DELETE RESTRICT
+);
+
+CREATE TABLE Moderador (
+	run VARCHAR(256) PRIMARY KEY,
+	email VARCHAR(256) NOT NULL UNIQUE,
+	nombre VARCHAR(256) NOT NULL,
+	apPaterno VARCHAR(256) NOT NULL,
+	apMaterno VARCHAR(256) NOT NULL,
+	refVeterinaria VARCHAR(256),
+	FOREIGN KEY (refVeterinaria) REFERENCES Veterinaria(rut) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Cliente (
+	run VARCHAR(256) PRIMARY KEY,
+	email VARCHAR(256) NOT NULL UNIQUE,
+	nombre VARCHAR(256) NOT NULL,
+	apPaterno VARCHAR(256) NOT NULL,
+	apMaterno VARCHAR(256) NOT NULL,
+	direccion VARCHAR(256) NOT NULL,
+	telefono BIGINT NOT NULL
+);
+
+CREATE TABLE Es_Cliente (
+	refVeterinaria VARCHAR(256),
+	refCliente VARCHAR(256),
+	FOREIGN KEY (refCliente) REFERENCES Cliente(run) ON DELETE RESTRICT ON UPDATE CASCADE,
+	FOREIGN KEY (refVeterinaria) REFERENCES Veterinaria(rut) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE Medico (
+	run VARCHAR(256) PRIMARY KEY,
+	email VARCHAR(256) NOT NULL UNIQUE,
+	nombre VARCHAR(256) NOT NULL,
+	apPaterno VARCHAR(256) NOT NULL,
+	apMaterno VARCHAR(256) NOT NULL,
+	refSucursal VARCHAR(256),
+	FOREIGN KEY (refSucursal) REFERENCES Sucursal(num_permiso) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Comentario (
+	codigo VARCHAR(256) PRIMARY KEY,
+	fecha DATE NOT NULL,
+	hora TIME NOT NULL,
+	texto VARCHAR(256) NOT NULL,
+	refVeterinaria VARCHAR(256),
+	refCliente VARCHAR(256),
+	FOREIGN KEY (refVeterinaria) REFERENCES Veterinaria(rut) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (refCliente) REFERENCES Cliente(run) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Revisar_Comentario (
+	refModerador VARCHAR(256),
+	refComentario VARCHAR(256),
+	FOREIGN KEY (refModerador) REFERENCES Moderador(run) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (refComentario) REFERENCES Comentario(codigo) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Mascota (
+	num_registro VARCHAR(256) PRIMARY KEY,
+	nombre VARCHAR(256) NOT NULL,
+	edad INT NOT NULL,
+	sexo VARCHAR(256) NOT NULL,
+	peso FLOAT8 NOT NULL,
+	diametro FLOAT8 NOT NULL,
+	estatura FLOAT8 NOT NULL,
+	largo FLOAT8 NOT NULL,
+	especie VARCHAR(256) NOT NULL,
+	fechaRegistro DATE NOT NULL,
+	refCliente VARCHAR(256),
+	FOREIGN KEY (refCliente) REFERENCES Cliente(run) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE EspMedico (
+	especialidad VARCHAR(256) NOT NULL,
+	refMedico VARCHAR(256),
+	PRIMARY KEY(especialidad, refMedico),
+	FOREIGN KEY (refMedico) REFERENCES Medico(run) ON DELETE CASCADE
+);
+
+CREATE TABLE HoraConsulta (
+	codigo VARCHAR(256) PRIMARY KEY,
+	fecha DATE NOT NULL,
+	hora TIME NOT NULL
+);
+
+CREATE TABLE Reserva_Hora (
+	refHoraConsulta VARCHAR(256),
+	refMedico VARCHAR(256),
+	refMascota VARCHAR(256),
+	FOREIGN KEY (refHoraConsulta) REFERENCES HoraConsulta(codigo) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (refMascota) REFERENCES Mascota(num_registro) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (refMedico) REFERENCES Medico(run) ON DELETE CASCADE ON UPDATE CASCADE
+);
