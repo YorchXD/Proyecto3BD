@@ -1,0 +1,8 @@
+C:\wamp64\www\ProyectoBD3\Veterinaria\Veterinaria\bin\Debug\netcoreapp2.0\Veterinaria.deps.json
+C:\wamp64\www\ProyectoBD3\Veterinaria\Veterinaria\bin\Debug\netcoreapp2.0\Veterinaria.runtimeconfig.json
+C:\wamp64\www\ProyectoBD3\Veterinaria\Veterinaria\bin\Debug\netcoreapp2.0\Veterinaria.runtimeconfig.dev.json
+C:\wamp64\www\ProyectoBD3\Veterinaria\Veterinaria\bin\Debug\netcoreapp2.0\Veterinaria.dll
+C:\wamp64\www\ProyectoBD3\Veterinaria\Veterinaria\obj\Debug\netcoreapp2.0\Veterinaria.csprojResolveAssemblyReference.cache
+C:\wamp64\www\ProyectoBD3\Veterinaria\Veterinaria\obj\Debug\netcoreapp2.0\Veterinaria.csproj.CoreCompileInputs.cache
+C:\wamp64\www\ProyectoBD3\Veterinaria\Veterinaria\obj\Debug\netcoreapp2.0\Veterinaria.AssemblyInfoInputs.cache
+C:\wamp64\www\ProyectoBD3\Veterinaria\Veterinaria\obj\Debug\netcoreapp2.0\Veterinaria.AssemblyInfo.cs
